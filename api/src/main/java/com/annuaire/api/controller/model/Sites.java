@@ -9,9 +9,21 @@ import lombok.Data;
 public class Sites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String ville;
+    String ville;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public String getAttribution() {
+        return attribution;
+    }
 
     private String attribution;
 }

@@ -10,23 +10,55 @@ public class Salaries {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String nom;
+    String nom;
 
-    private String prenom;
+    String prenom;
 
     @Column(name="telephone_fixe")
-    private String telephoneFixe;
+    String telephoneFixe;
 
     @Column(name="telephone_portable")
-    private String telephonePortable;
+    String telephonePortable;
 
-    private String email;
+    String email;
 
     @Column(name="fk_service")
-    private Long fkService;
+    Long fkService;
 
     @Column(name="fk_site")
-    private Long fkSite;
+    Long fkSite;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getTelephoneFixe() {
+        return telephoneFixe;
+    }
+
+    public String getTelephonePortable() {
+        return telephonePortable;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Long getFkService() {
+        return fkService;
+    }
+
+    public Long getFkSite() {
+        return fkSite;
+    }
 }
