@@ -2,9 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>
-          Annuaire d'entreprise
-        </q-toolbar-title>
+        <q-toolbar-title> Annuaire d'entreprise </q-toolbar-title>
 
         <div>Entreprise x</div>
       </q-toolbar>
@@ -15,6 +13,4 @@
   </q-layout>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
