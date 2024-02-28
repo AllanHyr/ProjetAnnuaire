@@ -16,6 +16,7 @@
       >
       </q-btn>
     </div>
+    <!-- Partie Recherche -->
     <div class="row justify-center q-my-xl">
       <q-input
         class="col-4"
@@ -43,6 +44,7 @@
         option-label="label"
       />
     </div>
+    <!-- Partie génération du tableau -->
     <div class="q-mx-xl" v-if="!authentification">
       <q-table
         :rows="data"
@@ -74,6 +76,7 @@
         </template>
       </q-table>
     </div>
+    <!-- Pop-up de connexion -->
     <q-dialog v-model="InputEvent">
       <q-page class="flex flex-center">
         <q-card class="max-w-sm shadow-2" @click.stop="">
@@ -108,6 +111,23 @@
         </q-card>
       </q-page>
     </q-dialog>
+    <!-- pop-up erreur d'identification -->
+    <q-dialog
+      v-model="errorPassword"
+      transition-show="rotate"
+      transition-hide="rotate"
+    >
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Mot de passe incorrect</div>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Ok" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- Easter egg -->
     <div v-if="surprise">
       <video controls autoplay controlsList="nodownload fullscreen">
         <source src="src/assets/test.mp4" type="video/mp4" />
@@ -115,6 +135,7 @@
         MP4.
       </video>
     </div>
+    <!-- pop-up avec le form de creation/modification salarié -->
     <q-dialog v-model="dialogEdit">
       <q-card>
         <q-card-section>
@@ -203,21 +224,6 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <q-dialog
-      v-model="errorPassword"
-      transition-show="rotate"
-      transition-hide="rotate"
-    >
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">Mot de passe incorrect</div>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="Ok" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </q-page>
   <q-page v-else class="row items-center justify-evenly">
     Chargement...
@@ -238,6 +244,8 @@ const username = ref(null);
 const password = ref(null);
 const errorPassword = ref(false);
 const authentification = ref(false);
+
+//Informations sur pour l'édition des salariés
 const editMail = ref(null);
 const editNom = ref(null);
 const editPrenom = ref(null);
@@ -246,19 +254,25 @@ const editTelephonePortable = ref(null);
 const editVille = ref(null);
 const editAttribution = ref(null);
 const editService = ref(null);
-const dialogEdit = ref(false);
 const editIdSite = ref(null);
 const editIdService = ref(null);
 const editIdSalarie = ref(null);
+const dialogEdit = ref(false);
+
+//Variable qui gère l'affichage du système d'authentification
 const InputEvent = ref(false);
+
+//Easter egg
 const countNeverGonnaGiveYouUp = ref(0);
 const surprise = ref(false);
 
+//Formation des select avec les informations des tables services et sites
 const selectedService = ref(null);
 const selectedSite = ref(null);
 const selectedEditService = ref(null);
 const selectedEditSite = ref(null);
 
+//Organisation des informations pour le q-table
 const columnsAdmin = [
   {
     name: 'id',
@@ -379,6 +393,7 @@ const columnsVisiteur = [
   },
 ];
 
+//Formation des select
 const serviceOptions = [
   { id: null, label: 'Tous' },
   { id: 1, label: 'Comptabilité' },
@@ -417,6 +432,7 @@ const siteEditOptions = [
   { id: 5, label: 'Lille' },
 ];
 
+// Fonction appelé lors du lancement de l'application
 onMounted(() => {
   loadData();
 });
