@@ -74,38 +74,47 @@
         </template>
       </q-table>
     </div>
-    <q-page class="flex flex-center">
-      <q-card class="max-w-sm shadow-2">
-        <q-card-section class="q-pa-md">
-          <div class="text-h6 text-center">Connexion</div>
+    <q-dialog v-model="InputEvent">
+      <q-page class="flex flex-center">
+        <q-card class="max-w-sm shadow-2" @click.stop="">
+          <q-card-section class="q-pa-md" @click.stop="">
+            <div class="text-h6 text-center">Connexion</div>
 
-          <q-form @submit="login">
-            <q-input
-              filled
-              v-model="username"
-              label="Nom d'utilisateur"
-              dense
-            />
+            <q-form @submit="login">
+              <q-input
+                filled
+                v-model="username"
+                label="Nom d'utilisateur"
+                dense
+              />
 
-            <q-input
-              filled
-              v-model="password"
-              label="Mot de passe"
-              type="password"
-              dense
-            />
+              <q-input
+                filled
+                v-model="password"
+                label="Mot de passe"
+                type="password"
+                dense
+              />
 
-            <q-btn
-              type="submit"
-              color="primary"
-              class="full-width q-mt-md"
-              label="Se connecter"
-              dense
-            />
-          </q-form>
-        </q-card-section>
-      </q-card>
-    </q-page>
+              <q-btn
+                type="submit"
+                color="primary"
+                class="full-width q-mt-md"
+                label="Se connecter"
+                dense
+              />
+            </q-form>
+          </q-card-section>
+        </q-card>
+      </q-page>
+    </q-dialog>
+    <div v-if="surprise">
+      <video controls autoplay controlsList="nodownload fullscreen">
+        <source src="src/assets/test.mp4" type="video/mp4" />
+        Votre navigateur ne prend pas en charge la lecture de vidéos au format
+        MP4.
+      </video>
+    </div>
     <q-dialog v-model="dialogEdit">
       <q-card>
         <q-card-section>
@@ -120,6 +129,7 @@
                 class="q-ma-xs col"
                 v-model="editNom"
                 label="Nom"
+                required
                 dense
               />
               <q-input
@@ -127,6 +137,7 @@
                 class="q-ma-xs col"
                 v-model="editPrenom"
                 label="Prenom"
+                required
                 dense
               />
             </div>
@@ -136,6 +147,7 @@
               class="q-ma-xs"
               v-model="editMail"
               label="Mail"
+              required
               dense
             />
 
@@ -144,6 +156,7 @@
               class="q-ma-xs"
               v-model="editTelephoneFixe"
               label="Telephone Fixe"
+              required
               dense
             />
 
@@ -152,6 +165,7 @@
               class="q-ma-xs"
               v-model="editTelephonePortable"
               label="Telephone portable"
+              required
               dense
             />
 
@@ -163,6 +177,7 @@
               map-options
               label="Sélectionner un site"
               option-value="id"
+              required
               option-label="label"
             />
             <q-select
@@ -171,6 +186,7 @@
               :options="serviceEditOptions"
               emit-value
               map-options
+              required
               label="Sélectionner un service"
               option-value="id"
               option-label="label"
@@ -234,6 +250,9 @@ const dialogEdit = ref(false);
 const editIdSite = ref(null);
 const editIdService = ref(null);
 const editIdSalarie = ref(null);
+const InputEvent = ref(false);
+const countNeverGonnaGiveYouUp = ref(0);
+const surprise = ref(false);
 
 const selectedService = ref(null);
 const selectedSite = ref(null);
@@ -450,9 +469,9 @@ function addSalarie() {
   editTelephonePortable.value = null;
   editAttribution.value = null;
   editVille.value = null;
-  selectedEditSite.value = null;
+  selectedEditSite.value = 1;
   editService.value = null;
-  selectedEditService.value = null;
+  selectedEditService.value = 1;
   editIdSite.value = null;
   editIdService.value = null;
   dialogEdit.value = true;
@@ -467,8 +486,15 @@ function deleteRow(row) {
 function login() {
   if (username.value == 'admin' && password.value == 'admin') {
     authentification.value = true;
+    InputEvent.value = false;
+    countNeverGonnaGiveYouUp.value = 0;
   } else {
     errorPassword.value = true;
+    countNeverGonnaGiveYouUp.value = countNeverGonnaGiveYouUp.value + 1;
+    if (countNeverGonnaGiveYouUp.value == 3) {
+      InputEvent.value = false;
+      surprise.value = true;
+    }
   }
   password.value = null;
 }
@@ -489,6 +515,12 @@ async function loadData() {
     console.log('Erreur :', error);
   }
 }
+
+window.addEventListener('keydown', (event) => {
+  if (event.ctrlKey && event.key === 'p') {
+    InputEvent.value = true;
+  }
+});
 
 watch(rechercheNom, () => {
   dataLoaded.value = false;
