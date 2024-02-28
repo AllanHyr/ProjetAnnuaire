@@ -29,6 +29,7 @@ public class AllRepository {
             if (service == null && site == null || service == null && site == respSite.get().getId() || service == respService.get().getId() && site == null || site == respSite.get().getId() && service == respService.get().getId()) {
                 All resp = new All();
                 resp.setId(salarie.getId());
+                resp.setMail(salarie.getEmail());
                 resp.setNom(salarie.getNom());
                 resp.setPrenom(salarie.getPrenom());
                 resp.setTelephoneFixe(salarie.getTelephoneFixe());
@@ -36,6 +37,8 @@ public class AllRepository {
                 resp.setVille(respSite.get().getVille());
                 resp.setAttribution(respSite.get().getAttribution());
                 resp.setService(respService.get().getNom());
+                resp.setIdService(respService.get().getId());
+                resp.setIdSite(respSite.get().getId());
                 listAll.add(resp);
             }
         }

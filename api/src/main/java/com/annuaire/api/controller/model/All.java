@@ -3,9 +3,40 @@ package com.annuaire.api.controller.model;
 public class All {
 
     Long id;
+
+    Long idService;
+
+    Long idSite;
+
+    public Long getIdService() {
+        return idService;
+    }
+
+    public void setIdService(Long idService) {
+        this.idService = idService;
+    }
+
+    public Long getIdSite() {
+        return idSite;
+    }
+
+    public void setIdSite(Long idSite) {
+        this.idSite = idSite;
+    }
+
     String nom;
 
+    String mail;
+
     String prenom;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
     String telephoneFixe;
 
