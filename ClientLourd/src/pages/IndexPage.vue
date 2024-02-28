@@ -431,11 +431,11 @@ function editRow(row) {
   editVille.value = row.ville;
   selectedEditSite.value = siteEditOptions.find(
     (option) => option.label === editVille.value
-  );
+  )?.id;
   editService.value = row.service;
   selectedEditService.value = serviceEditOptions.find(
     (option) => option.label === editService.value
-  );
+  )?.id;
   editIdSite.value = row.idSite;
   editIdService.value = row.idService;
   dialogEdit.value = true;
